@@ -6,8 +6,8 @@ Apenas as rotas de login e cadastro não serão protegidas, para todas as demais
 ## Tecnologias utilizadas
 
 - Nodejs 17.6.0
- - Express
- - Nodemon
- - Surcrase
- - Jsonwebtoken
- - Bcrypt
+- Express
+- Nodemon
+- Surcrase
+- Jsonwebtoken
+- Bcrypt
