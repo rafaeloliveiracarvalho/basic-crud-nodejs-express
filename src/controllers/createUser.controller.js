@@ -1,4 +1,4 @@
-import createUserService from '../services/createUser.service';
+import { createUserService } from '../services';
 
 const createUserController = async (req, res) => {
   const userData = req.body;
@@ -6,7 +6,7 @@ const createUserController = async (req, res) => {
     const user = await createUserService(userData);
 
     return res.status(200).json(user);
-  } catch (error) {
+  } catch (_) {
     res.status(400).json({ error: 'Register failed' });
   }
 };
