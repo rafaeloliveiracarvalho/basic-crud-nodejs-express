@@ -1,7 +1,10 @@
 import { User } from '../models';
 
 const listUsersService = async () => {
-  const listUsers = await User.find({});
+  let listUsers = await User.find({});
+
+  listUsers = listUsers.map((user) => user.toObject());
+
   return listUsers;
 };
 
