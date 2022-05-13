@@ -1,10 +1,7 @@
-import { decode } from 'jsonwebtoken';
 import { User } from '../models';
 
 const verifyIfIsAdminMiddleware = async (req, res, next) => {
-  const token = req.headers.authorization.split(' ')[1];
-  const { id } = decode(token);
-
+  const { id } = req.decoded;
   const { isAdm } = await User.findOne({ uuid: id }).exec();
 
   if (!isAdm) {

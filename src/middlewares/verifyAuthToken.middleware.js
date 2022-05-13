@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import { verify } from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -12,10 +12,13 @@ const verifyAuthTokenMiddleware = (req, res, next) => {
 
   token = token.split(' ')[1];
 
-  jwt.verify(token, process.env.SECRET_KEY, (error, decode) => {
+  verify(token, process.env.SECRET_KEY, (error, decode) => {
     if (error) {
       return res.status(401).json({ message: 'Invalid token' });
     }
+
+    req.decoded = decode;
+
     next();
   });
 };
