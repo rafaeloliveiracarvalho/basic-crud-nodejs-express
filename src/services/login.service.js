@@ -20,7 +20,7 @@ const loginService = async ({ body }) => {
     return { status: 400, message: { message: 'Invalid credentials' } };
   }
 
-  const token = sign(foundUser.toJSON(), process.env.SECRET_KEY, {
+  const token = sign({ id: foundUser.uuid }, process.env.SECRET_KEY, {
     expiresIn: process.env.EXPIRATION_TOKEN,
   });
 
