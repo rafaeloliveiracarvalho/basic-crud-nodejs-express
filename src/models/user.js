@@ -23,15 +23,12 @@ const UserSchema = new mongoose.Schema(
     },
     createdOn: {
       type: Date,
-      default: Date.now(),
     },
     updatedOn: {
       type: Date,
-      default: Date.now(),
     },
     uuid: {
       type: String,
-      default: uuid4(),
     },
   },
   {
@@ -49,6 +46,9 @@ UserSchema.options.toObject.transform = function (_, ret) {
 UserSchema.pre('save', function (next) {
   const hashedPassword = hashSync(this.password, 10);
   this.password = hashedPassword;
+  this.uuid = uuid4();
+  this.createdOn = Date.now();
+  this.updatedOn = Date.now();
   next();
 });
 
