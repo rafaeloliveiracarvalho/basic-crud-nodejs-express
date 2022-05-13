@@ -6,7 +6,6 @@ const createUserService = async ({ body }) => {
   const allowedKeys = [
     'name',
     'email',
-    'password',
     'isAdm',
     'createdOn',
     'updatedOn',
