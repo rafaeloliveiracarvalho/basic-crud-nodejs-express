@@ -1,25 +1,12 @@
 import { User } from '../models';
+import { serializeUser } from '../utils';
 
 const createUserService = async ({ body }) => {
   const newUser = await User.create({ ...body });
 
-  const allowedKeys = [
-    'name',
-    'email',
-    'isAdm',
-    'createdOn',
-    'updatedOn',
-    'uuid',
-  ];
+  const serializedUser = serializeUser(newUser);
 
-  const user = {};
-
-  for (let key in newUser) {
-    if (allowedKeys.includes(key)) {
-      user[key] = newUser[key];
-    }
-  }
-  return user;
+  return serializedUser;
 };
 
 export default createUserService;

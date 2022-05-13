@@ -37,12 +37,6 @@ const UserSchema = new mongoose.Schema(
   },
 );
 
-UserSchema.options.toObject = {};
-UserSchema.options.toObject.transform = function (_, ret) {
-  delete ret._id;
-  return ret;
-};
-
 UserSchema.pre('save', function (next) {
   const hashedPassword = hashSync(this.password, 10);
   this.password = hashedPassword;
