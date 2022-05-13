@@ -1,6 +1,10 @@
 import { Router } from 'express';
 
-import { createUserController, listUsersController } from '../controllers';
+import {
+  createUserController,
+  getUserProfileController,
+  listUsersController,
+} from '../controllers';
 
 import {
   verifyEmailMiddleware,
@@ -17,5 +21,6 @@ router.get(
   verifyIfIsAdminMiddleware,
   listUsersController,
 );
+router.get('/profile', verifyAuthTokenMiddleware, getUserProfileController);
 
 export default router;
