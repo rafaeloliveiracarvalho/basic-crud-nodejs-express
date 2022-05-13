@@ -3,11 +3,9 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const DB_HOST = process.env.DB_HOST;
-const DB_PORT = process.env.DB_PORT;
-const DB_NAME = process.env.DB_NAME;
+const MONGODB_URL = process.env.MONGODB_URL;
 
-mongoose.connect(`mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`, {
+mongoose.connect(`${MONGODB_URL}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
