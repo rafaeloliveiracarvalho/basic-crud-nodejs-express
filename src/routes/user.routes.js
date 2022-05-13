@@ -13,6 +13,7 @@ import {
   verifyAuthTokenMiddleware,
   getUserByParamsOr404Middleware,
   verifyUserPermissionMiddleware,
+  normalizeBodyFieldsToUpdateUser,
 } from '../middlewares';
 
 const router = Router();
@@ -28,6 +29,7 @@ router.get(
 router.patch(
   '/:uuid',
   verifyAuthTokenMiddleware,
+  normalizeBodyFieldsToUpdateUser,
   getUserByParamsOr404Middleware,
   verifyUserPermissionMiddleware,
   updateUserController,
