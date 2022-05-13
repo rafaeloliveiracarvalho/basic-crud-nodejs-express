@@ -1,6 +1,6 @@
 import mongoose from '../database';
 import { v4 as uuid4 } from 'uuid';
-import * as bcrypt from 'bcryptjs';
+import { hashSync } from 'bcryptjs';
 
 const UserSchema = new mongoose.Schema(
   {
@@ -16,7 +16,6 @@ const UserSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
-      select: false,
     },
     isAdm: {
       type: Boolean,
@@ -47,8 +46,8 @@ UserSchema.options.toObject.transform = function (_, ret) {
   return ret;
 };
 
-UserSchema.pre('save', async function (next) {
-  const hashedPassword = await bcrypt.hash(this.password, 10);
+UserSchema.pre('save', function (next) {
+  const hashedPassword = hashSync(this.password, 10);
   this.password = hashedPassword;
   next();
 });
