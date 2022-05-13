@@ -5,6 +5,7 @@ import {
   getUserProfileController,
   listUsersController,
   updateUserController,
+  deleteUserController,
 } from '../controllers';
 
 import {
@@ -26,6 +27,7 @@ router.get(
   verifyIfIsAdminMiddleware,
   listUsersController,
 );
+
 router.patch(
   '/:uuid',
   verifyAuthTokenMiddleware,
@@ -33,6 +35,14 @@ router.patch(
   getUserByParamsOr404Middleware,
   verifyUserPermissionMiddleware,
   updateUserController,
+);
+
+router.delete(
+  '/:uuid',
+  verifyAuthTokenMiddleware,
+  getUserByParamsOr404Middleware,
+  verifyUserPermissionMiddleware,
+  deleteUserController,
 );
 
 export default router;
