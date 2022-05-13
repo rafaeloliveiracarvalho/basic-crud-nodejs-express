@@ -1,4 +1,9 @@
 import verifyEmailMiddleware from './verifyEmail.middleware';
-import verifyUserExistsMiddleware from './verifyUserExistis.middleware';
+import verifyIfIsAdminMiddleware from './verifyIfIsAdmin.middleware';
+import verifyAuthTokenMiddleware from './verifyAuthToken.middleware';
 
-export { verifyEmailMiddleware, verifyUserExistsMiddleware };
+export {
+  verifyEmailMiddleware,
+  verifyIfIsAdminMiddleware,
+  verifyAuthTokenMiddleware,
+};
