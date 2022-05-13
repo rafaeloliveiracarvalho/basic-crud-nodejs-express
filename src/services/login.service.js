@@ -10,7 +10,7 @@ const loginService = async ({ body }) => {
   const { email, password } = body;
   const foundUser = await User.findOne({ email }).exec();
 
-  if (!foundUser) {
+  if (!foundUser || !password) {
     return { status: 400, message: { message: 'Invalid credentials' } };
   }
 
