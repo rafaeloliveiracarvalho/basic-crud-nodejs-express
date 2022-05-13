@@ -10,7 +10,7 @@ const verifyUserPermissionMiddleware = async (req, res, next) => {
 
   if (uuid !== id)
     return res.status(403).json({
-      message: "You don't have permission to update another user !!!",
+      message: "You don't have permission to update/delete another user !!!",
     });
 
   return next();
