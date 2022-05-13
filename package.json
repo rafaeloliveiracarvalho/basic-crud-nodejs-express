@@ -5,6 +5,7 @@
   "repository": "git@github.com:Kenzie-Academy-Brasil-Developers/m4-entrega-sprint1-rafaelocdev.git",
   "author": "Rafael Carvalho <65735479+rafaelocdev@users.noreply.github.com>",
   "license": "MIT",
+  "type": "module",
   "engines": {
     "node": ">=17"
   },
