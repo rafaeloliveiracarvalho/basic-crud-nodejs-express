@@ -19,7 +19,7 @@ import {
 
 const router = Router();
 
-router.post('/register', verifyEmailMiddleware, createUserController);
+router.post('/', verifyEmailMiddleware, createUserController);
 router.get('/profile', verifyAuthTokenMiddleware, getUserProfileController);
 router.get(
   '',
