@@ -25,7 +25,9 @@ Está Rest API trata-se de um CRUD básico de usuários com o objetivo de trinar
 
 <hr/>
 
-loasdasdasdas
+O banco de dados em MongoDB pode ser configurado tanto localmente quanto pelo MongoDB Atlas. <br/>
+Caso utilize um banco local configure avariável de ambiente MONGODB_LOCAL em um arquivo .env conforme o arquivo .env.example. Para maiores informações veja [Mongosh](https://www.mongodb.com/docs/mongodb-shell/run-commands/).<br/>
+Do contrário, optando pelo MongoDB Atlas, configure avariável de ambiente MONGODB_URI. Para maiores informações veja [MongoDB Atlas](https://www.mongodb.com/docs/atlas/connect-to-database-deployment/).
 
 <br/>
 <br/>
