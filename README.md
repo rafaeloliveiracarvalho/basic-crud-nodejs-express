@@ -1,13 +1,254 @@
-# CRUD Usuários com Autthentication e JWT Token
+<h1 align="center"><strong>CRUD Usuários com Autthentication e JWT Token</strong></h1>
 
-Está Rest API trata-se de um CRUD básico de usuários, onde podem cadastra-se, visualizar suas informações e de outros usuários, atualizar suas informações ou mesmo excluir seu cadastro.
-Apenas as rotas de login e cadastro não serão protegidas, para todas as demais rotas será necessário a utilização de token de authenticação.
+Está Rest API trata-se de um CRUD básico de usuários com o objetivo de trinar os conhecimentos adquiridos sobre Nodejs, Express e utilização de tokens para autenticação. Como feature extra foi implementado integração com banco de dados MongoDB utilizando a biblioteca Mongoose.
 
-## Tecnologias utilizadas
+<br/>
+<br/>
+
+## **Tecnologias utilizadas**
+
+<hr/>
 
 - Nodejs 17.6.0
-- Express
-- Nodemon
-- Surcrase
-- Jsonwebtoken
-- Bcrypt
+- Express 4.18.1
+- Mongoose 6.3.3
+- Nodemon 2.0.16
+- Surcrase 3.21.0
+- Jsonwebtoken 8.5.1
+- Bcrypt 2.4.3
+- Uuid 8.3.2
+
+<br/>
+<br/>
+
+## **Configuração banco de dados**
+
+<hr/>
+
+loasdasdasdas
+
+<br/>
+<br/>
+
+## **Endpoints**
+
+<hr/>
+
+A API possui um total de 6 endpoits onde os usuários podem cadastra-se, fazer login, visualizar suas informações e de outros usuários (caso sejam usuários do tipo admin), atualizar suas informações ou mesmo excluir seu cadastro.
+Apenas as rotas de login e cadastro não serão protegidas, para todas as demais rotas será necessário a utilização de token de authenticação.
+
+<br/>
+
+### **Rotas não protegidas**
+
+<hr/>
+
+#### **Criação de usuário**
+
+-> POST /users - Formato da requisição:
+
+```json
+{
+  "name": "John Doe",
+  "email": "johndoe@mail.com",
+  "password": "123456",
+  "isAdm": true
+}
+```
+
+-> Status code 201 - Formato da resposta:
+
+```json
+{
+  "name": "John Doe",
+  "email": "johndoe@mail.com",
+  "isAdm": true,
+  "uuid": "fb03b6a7-4287-4cb4-95c3-bc786ef66749",
+  "createdOn": "2022-05-16T11:40:56.953Z",
+  "updatedOn": "2022-05-16T11:40:56.953Z"
+}
+```
+
+<br />
+
+#### **Login de usuário**
+
+-> POST /login - Formato da requisição:
+
+```json
+{
+  "email": "johndoe@mail.com",
+  "password": "123456"
+}
+```
+
+-> Status code 200 - Formato da resposta:
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZiMDNiNmE3LTQyODctNGNiNC05NWMzLWJjNzg2ZWY2Njc0OSIsImlhdCI6MTY1MjcwMTU2MSwiZXhwIjoxNjUyNzg3OTYxfQ.wKUkVr7nW-FRV0rZh0ju6Bm9vPWqoRraZ8gyH7wqUKo"
+}
+```
+
+-> Possíveis erros
+
+- Credenciais inválidas - Status code 400;
+
+  ```json - response
+  {
+    "message": "Invalid credentials"
+  }
+  ```
+
+  <br/>
+  <br/>
+
+### **Rotas protegidas**
+
+<hr/>
+
+Para este tipo de endpoint é necessário enviar o token de acesso no header da requisição da seguinte maneira:
+
+```js - header
+{
+  headers: {
+    Authorization: `Bearer ${token}`;
+  }
+}
+```
+
+-> Possíveis erros ao acessar rotas protegidas sem token
+
+- Status code 401 - Formato da resposta:
+
+  ```json - response
+  {
+    "msg": "Missing Authorization Header"
+  }
+  ```
+
+-> Possíveis erros ao acessar rotas para usuários admins
+
+- Status code 401 - Formato da resposta:
+
+  ```json - response
+  {
+    "message": "Only administrators can access this information"
+  }
+  ```
+
+  <br/>
+
+#### **Informações do usuário logado**
+
+-> GET /users/profile - Requisição sem corpo:
+
+-> Status code 200 - Formato da resposta:
+
+```json
+{
+  "name": "John Doe",
+  "email": "johndoe@mail.com",
+  "isAdm": true,
+  "uuid": "fb03b6a7-4287-4cb4-95c3-bc786ef66749",
+  "createdOn": "2022-05-16T11:40:56.953Z",
+  "updatedOn": "2022-05-16T11:40:56.953Z"
+}
+```
+
+<br/>
+
+#### **Listagem dos usuários**
+
+:warning: **Aviso!** Somente usuários admins podem acessar essa rota.
+
+-> GET /users - Requisição sem corpo:
+
+-> Status code 200 - Formato da resposta:
+
+```json
+[
+  {
+    "name": "Rafael Oliveira Carvalho",
+    "email": "rafael@mail.com",
+    "isAdm": true,
+    "uuid": "520dde14-c90a-43d4-8b2d-e75c1c840e15",
+    "createdOn": "2022-05-13T20:01:00.637Z",
+    "updatedOn": "2022-05-13T20:08:26.316Z"
+  },
+  {
+    "name": "John Doe",
+    "email": "johndoe@mail.com",
+    "isAdm": true,
+    "uuid": "fb03b6a7-4287-4cb4-95c3-bc786ef66749",
+    "createdOn": "2022-05-16T11:40:56.953Z",
+    "updatedOn": "2022-05-16T11:40:56.953Z"
+  }
+]
+```
+
+<br/>
+
+#### **Atualização de usuários**
+
+:warning: **Aviso!** Somente usuários admins podem atualizar informações de outros usuários. Os demais usuários podem atualizar somente as próprias informações. <br/>
+:warning: **Aviso!** Somente os campos "name", "email" e "password" podem ser atualizados. Outros campos serão ignorados.
+
+-> PATCH /users/:userId - Formato da requisição:
+
+```json
+{
+  "name": "John Doe",
+  "email": "johndoe@mail.com",
+  "password": "123456"
+}
+```
+
+-> Status code 200 - Formato da resposta:
+
+```json
+{
+  "name": "John Doe",
+  "email": "johndoe@mail.com",
+  "isAdm": true,
+  "uuid": "fb03b6a7-4287-4cb4-95c3-bc786ef66749",
+  "createdOn": "2022-05-16T11:40:56.953Z",
+  "updatedOn": "2022-05-16T13:17:18.714Z"
+}
+```
+
+-> Possíveis erros
+
+- Usuário não encontrado - Status code 404;
+
+  ```json - response
+  {
+    "message": "User not found"
+  }
+  ```
+
+<br/>
+
+#### **Deleção de usuários**
+
+:warning: **Aviso!** Somente usuários admins podem deletar outros usuários. Os demais usuários podem deletar somente as próprias contas.
+
+-> DELETE /users/:userId - Requisição sem corpo:
+
+-> Status code 200 - Formato da resposta:
+
+```json
+{
+  "message": "User deleted with success"
+}
+```
+
+-> Possíveis erros
+
+- Usuário não encontrado - Status code 404;
+
+  ```json - response
+  {
+    "message": "User not found"
+  }
+  ```
