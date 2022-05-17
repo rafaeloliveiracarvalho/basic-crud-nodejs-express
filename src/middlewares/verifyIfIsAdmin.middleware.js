@@ -5,9 +5,7 @@ const verifyIfIsAdminMiddleware = async (req, res, next) => {
   const { isAdm } = await User.findOne({ uuid: id }).exec();
 
   if (!isAdm) {
-    return res
-      .status(401)
-      .json({ message: 'Only administrators can access this information' });
+    return res.status(401).json({ message: 'Unauthorized' });
   }
 
   next();
