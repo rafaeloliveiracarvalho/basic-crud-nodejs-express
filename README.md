@@ -71,6 +71,30 @@ Apenas as rotas de login e cadastro não serão protegidas, para todas as demais
 }
 ```
 
+-> Possíveis erros
+
+- Email já registrado - Status code 400;
+
+  ```json - response
+  {
+    "message": "E-mail already registered"
+  }
+  ```
+
+- Campos necessários não utilizados - Status code 400;
+
+  ```json - response
+  {
+    "error": "Register failed",
+    "necessaryFields": {
+      "name": "string",
+      "email": "string",
+      "password": "string",
+      "isAdm": "boolean"
+    }
+  }
+  ```
+
 <br />
 
 #### **Login de usuário**
@@ -94,11 +118,11 @@ Apenas as rotas de login e cadastro não serão protegidas, para todas as demais
 
 -> Possíveis erros
 
-- Credenciais inválidas - Status code 400;
+- Email ou senha inválidos - Status code 400;
 
   ```json - response
   {
-    "message": "Invalid credentials"
+    "message": "Wrong email/password"
   }
   ```
 
@@ -125,17 +149,7 @@ Para este tipo de endpoint é necessário enviar o token de acesso no header da 
 
   ```json - response
   {
-    "msg": "Missing Authorization Header"
-  }
-  ```
-
--> Possíveis erros ao acessar rotas para usuários admins
-
-- Status code 401 - Formato da resposta:
-
-  ```json - response
-  {
-    "message": "Only administrators can access this information"
+    "msg": "Missing authorization headers"
   }
   ```
 
@@ -189,6 +203,16 @@ Para este tipo de endpoint é necessário enviar o token de acesso no header da 
 ]
 ```
 
+-> Possíveis erros
+
+- Usuário sem permissão de administrador - Status code 401:
+
+  ```json - response
+  {
+    "message": "Unauthorized"
+  }
+  ```
+
 <br/>
 
 #### **Atualização de usuários**
@@ -221,6 +245,14 @@ Para este tipo de endpoint é necessário enviar o token de acesso no header da 
 
 -> Possíveis erros
 
+- Usuário sem permissão de administrador - Status code 401:
+
+  ```json - response
+  {
+    "message": "Missing admin permissions"
+  }
+  ```
+
 - Usuário não encontrado - Status code 404;
 
   ```json - response
@@ -246,6 +278,14 @@ Para este tipo de endpoint é necessário enviar o token de acesso no header da 
 ```
 
 -> Possíveis erros
+
+- Usuário sem permissão de administrador - Status code 401:
+
+  ```json - response
+  {
+    "message": "Missing admin permissions"
+  }
+  ```
 
 - Usuário não encontrado - Status code 404;
 

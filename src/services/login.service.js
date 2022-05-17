@@ -11,13 +11,13 @@ const loginService = async ({ body }) => {
   const foundUser = await User.findOne({ email }).exec();
 
   if (!foundUser || !password) {
-    return { status: 400, message: { message: 'Invalid credentials' } };
+    return { status: 400, message: { message: 'Wrong email/password' } };
   }
 
   const checkPassword = compareSync(password, foundUser.password);
 
   if (!checkPassword) {
-    return { status: 400, message: { message: 'Invalid credentials' } };
+    return { status: 400, message: { message: 'Wrong email/password' } };
   }
 
   const token = sign({ id: foundUser.uuid }, process.env.SECRET_KEY, {
