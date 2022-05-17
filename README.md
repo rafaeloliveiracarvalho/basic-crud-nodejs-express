@@ -149,17 +149,7 @@ Para este tipo de endpoint é necessário enviar o token de acesso no header da 
 
   ```json - response
   {
-    "msg": "Missing Authorization Header"
-  }
-  ```
-
--> Possíveis erros ao acessar rotas para usuários admins
-
-- Status code 401 - Formato da resposta:
-
-  ```json - response
-  {
-    "message": "Only administrators can access this information"
+    "msg": "Missing authorization headers"
   }
   ```
 
@@ -213,6 +203,16 @@ Para este tipo de endpoint é necessário enviar o token de acesso no header da 
 ]
 ```
 
+-> Possíveis erros
+
+- Usuário sem permissão de administrador - Status code 401:
+
+  ```json - response
+  {
+    "message": "Unauthorized"
+  }
+  ```
+
 <br/>
 
 #### **Atualização de usuários**
@@ -245,6 +245,14 @@ Para este tipo de endpoint é necessário enviar o token de acesso no header da 
 
 -> Possíveis erros
 
+- Usuário sem permissão de administrador - Status code 401:
+
+  ```json - response
+  {
+    "message": "Missing admin permissions"
+  }
+  ```
+
 - Usuário não encontrado - Status code 404;
 
   ```json - response
@@ -270,6 +278,14 @@ Para este tipo de endpoint é necessário enviar o token de acesso no header da 
 ```
 
 -> Possíveis erros
+
+- Usuário sem permissão de administrador - Status code 401:
+
+  ```json - response
+  {
+    "message": "Missing admin permissions"
+  }
+  ```
 
 - Usuário não encontrado - Status code 404;
 
