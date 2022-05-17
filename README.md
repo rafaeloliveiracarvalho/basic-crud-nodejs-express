@@ -71,6 +71,30 @@ Apenas as rotas de login e cadastro não serão protegidas, para todas as demais
 }
 ```
 
+-> Possíveis erros
+
+- Email já registrado - Status code 400;
+
+  ```json - response
+  {
+    "message": "E-mail already registered"
+  }
+  ```
+
+- Campos necessários não utilizados - Status code 400;
+
+  ```json - response
+  {
+    "error": "Register failed",
+    "necessaryFields": {
+      "name": "string",
+      "email": "string",
+      "password": "string",
+      "isAdm": "boolean"
+    }
+  }
+  ```
+
 <br />
 
 #### **Login de usuário**
@@ -94,11 +118,11 @@ Apenas as rotas de login e cadastro não serão protegidas, para todas as demais
 
 -> Possíveis erros
 
-- Credenciais inválidas - Status code 400;
+- Email ou senha inválidos - Status code 400;
 
   ```json - response
   {
-    "message": "Invalid credentials"
+    "message": "Wrong email/password"
   }
   ```
 

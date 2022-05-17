@@ -5,7 +5,7 @@ const verifyEmailMiddleware = async (req, res, next) => {
   const foundUser = await User.findOne({ email }).exec();
 
   if (foundUser) {
-    return res.status(409).json({ message: 'This email already being used' });
+    return res.status(400).json({ message: 'E-mail already registered' });
   }
 
   next();
