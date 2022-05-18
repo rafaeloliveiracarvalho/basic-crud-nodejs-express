@@ -73,7 +73,7 @@ Apenas as rotas de login e cadastro não serão protegidas, para todas as demais
 
 -> Possíveis erros
 
-- Email já registrado - Status code 400;
+- Email já registrado - Status code 401;
 
   ```json - response
   {
